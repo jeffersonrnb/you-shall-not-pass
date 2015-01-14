@@ -89,7 +89,6 @@ window.addEventListener('load', function () {
         return chars[0].status === 'Winner' ? chars[0] : chars[1];
     };
 
-
     var atacar = function() {
         var totalDamage;
         var avatars = document.querySelectorAll('.avatar');
@@ -134,6 +133,8 @@ window.addEventListener('load', function () {
             }
         }
 
+        (new Sound({ fileType: 'wav', path: 'sound/staff', htmlElement: document.querySelector('.button') })).play();
+
         var lifes = document.querySelectorAll('.life');
         lifes[0].innerHTML = 'Life: ' + char1.life;
         lifes[1].innerHTML = 'Life: ' + char2.life;
@@ -143,9 +144,17 @@ window.addEventListener('load', function () {
         if (char1.life <= 0) {
             divCharacter = document.querySelectorAll('.character')[1];
             divCharacter.style.backgroundColor = 'green';
+
+            var sound = new Sound({ fileType: 'mp3', path: 'sound/defeat', htmlElement: document.querySelector('.character') });
+            var soundComponent = new SoundComponent(sound);
+            soundComponent.playByAudio(false);
         } else if (char2.life <= 0) {
             divCharacter = document.querySelectorAll('.character')[0];
             divCharacter.style.backgroundColor = 'green';
+
+            var sound = new Sound({ fileType: 'mp3', path: 'sound/victory', htmlElement: document.querySelector('.character') });
+            var soundComponent = new SoundComponent(sound);
+            soundComponent.playByAudio(false);
         }
     }
 
@@ -174,6 +183,10 @@ window.addEventListener('load', function () {
 
         printChar(char1);
         printChar(char2);
+
+        var sound = new Sound({ fileType: 'mp3', path: 'sound/battle', htmlElement: document.querySelector('.sound') });
+        var soundComponent = new SoundComponent(sound);
+        soundComponent.playByAudio(true);
     }
 
     document.querySelector('.button').addEventListener('click', atacar);
