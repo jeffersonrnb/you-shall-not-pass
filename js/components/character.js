@@ -28,4 +28,20 @@ CharacterComponent.prototype.show = function() {
 
     step = this.step;
     window.requestAnimationFrame(step);
-}
+};
+
+CharacterComponent.prototype.levelUp = function () {
+    var character = this.character,
+        template = '\
+        <div class="level-up">\
+            <img src="img/misc/levelup.gif" alt="">\
+            <div class="xp">XP: {{XP}}</div>\
+        </div>';
+
+    character.XP++;
+
+    template = template.replace('{{XP}}', character.XP);
+
+    divPlayer = document.querySelector('.player');
+    divPlayer.innerHTML = template + divPlayer.innerHTML;
+};

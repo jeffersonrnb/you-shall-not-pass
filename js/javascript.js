@@ -34,7 +34,7 @@ window.addEventListener('load', function () {
     };
 
     var atacar = function() {
-        if (player.life > 0 && enemy.life > 0) {
+        if (player.isAlive() && enemy.isAlive()) {
             player.attack(enemy);
             playerComponent.show();
             playerAttributesComponent.show();
@@ -43,39 +43,34 @@ window.addEventListener('load', function () {
                 enemyAttributesComponent.show();
                 enemyComponent.show();
             }
-        }
 
-        staffSound.play();
-        playerComponent.show();
-        playerAttributesComponent.show();
-        enemyComponent.show();
-        enemyAttributesComponent.show();
+            staffSound.play();
+            playerComponent.show();
+            playerAttributesComponent.show();
+            enemyComponent.show();
+            enemyAttributesComponent.show();
 
-        var divCharacter;
+            var divCharacter;
 
-        if (player.life <= 0) {
-            divCharacter = document.querySelector('.enemy');
-            divCharacter.style.backgroundColor = 'green';
+            if (!player.isAlive()) {
+                soundComponent = new SoundComponent(defeatSound);
+                soundComponent.playByAudio(false);
+            } else if (!enemy.isAlive()) {
+                soundComponent = new SoundComponent(victorySound);
+                soundComponent.playByAudio(false);
+                playerComponent.levelUp();
 
-            soundComponent = new SoundComponent(defeatSound);
-            soundComponent.playByAudio(false);
-        } else if (enemy.life <= 0) {
-            divCharacter = document.querySelector('.player');
-            divCharacter.style.backgroundColor = 'green';
+                window.setTimeout(function() {
+                    soundComponent = new SoundComponent(battleEpicSound);
+                    soundComponent.playByAudio(true);
 
-            var soundComponent = new SoundComponent(victorySound);
-            soundComponent.playByAudio(false);
+                    document.querySelector('.level-up').remove();
 
-            window.setTimeout(function() {
-                soundComponent = new SoundComponent(battleEpicSound);
-                soundComponent.playByAudio(true);
-
-                divCharacter.style.backgroundColor = '';
-
-                enemy = createCharacter('Personagem3');
-                enemyAttributesComponent = new CharacterAttributesComponent('enemy', enemy);
-                enemyAttributesComponent.show();
-            }, 5000);
+                    enemy = createCharacter('Personagem3');
+                    enemyAttributesComponent = new CharacterAttributesComponent('enemy', enemy);
+                    enemyAttributesComponent.show();
+                }, 5000);
+            }
         }
     }
 
