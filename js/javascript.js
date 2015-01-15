@@ -1,7 +1,13 @@
 window.addEventListener('load', function () {
     'use strict'
 
-    var player, enemy;
+    var player, enemy, playerComponent, playerAttributesComponent, enemyComponent, enemyAttributesComponent, soundComponent,
+        battleSound = new Sound({ fileType: 'mp3', path: 'sound/battle', htmlElement: document.querySelector('.sound') }),
+        battleEpicSound = new Sound({ fileType: 'mp3', path: 'sound/battle-epic', htmlElement: document.querySelector('.sound') }),
+        victorySound = new Sound({ fileType: 'mp3', path: 'sound/victory', htmlElement: document.querySelector('.player') }),
+        defeatSound = new Sound({ fileType: 'mp3', path: 'sound/defeat', htmlElement: document.querySelector('.player') }),
+        staffSound = new Sound({ fileType: 'wav', path: 'sound/staff', htmlElement: document.querySelector('.attack') });
+
 
     var createCharacter = function (nome) {
         var char = generateChar(nome);
@@ -30,16 +36,20 @@ window.addEventListener('load', function () {
     var atacar = function() {
         if (player.life > 0 && enemy.life > 0) {
             player.attack(enemy);
-            (new CharacterComponent('player', player)).show();
-            if(enemy.life > 0) {
+            playerComponent.show();
+            playerAttributesComponent.show();
+            if (enemy.life > 0) {
                 enemy.attack(player);
-                (new CharacterComponent('enemy', enemy)).show();
+                enemyAttributesComponent.show();
+                enemyComponent.show();
             }
         }
 
-        (new Sound({ fileType: 'wav', path: 'sound/staff', htmlElement: document.querySelector('.attack') })).play();
-        (new CharacterAttributesComponent('player', player)).show();
-        (new CharacterAttributesComponent('enemy', enemy)).show();
+        staffSound.play();
+        playerComponent.show();
+        playerAttributesComponent.show();
+        enemyComponent.show();
+        enemyAttributesComponent.show();
 
         var divCharacter;
 
@@ -47,16 +57,25 @@ window.addEventListener('load', function () {
             divCharacter = document.querySelector('.enemy');
             divCharacter.style.backgroundColor = 'green';
 
-            var sound = new Sound({ fileType: 'mp3', path: 'sound/defeat', htmlElement: document.querySelector('.character') });
-            var soundComponent = new SoundComponent(sound);
+            soundComponent = new SoundComponent(defeatSound);
             soundComponent.playByAudio(false);
         } else if (enemy.life <= 0) {
             divCharacter = document.querySelector('.player');
             divCharacter.style.backgroundColor = 'green';
 
-            var sound = new Sound({ fileType: 'mp3', path: 'sound/victory', htmlElement: document.querySelector('.character') });
-            var soundComponent = new SoundComponent(sound);
+            var soundComponent = new SoundComponent(victorySound);
             soundComponent.playByAudio(false);
+
+            window.setTimeout(function() {
+                soundComponent = new SoundComponent(battleEpicSound);
+                soundComponent.playByAudio(true);
+
+                divCharacter.style.backgroundColor = '';
+
+                enemy = createCharacter('Personagem3');
+                enemyAttributesComponent = new CharacterAttributesComponent('enemy', enemy);
+                enemyAttributesComponent.show();
+            }, 5000);
         }
     }
 
@@ -84,11 +103,16 @@ window.addEventListener('load', function () {
 
         document.querySelector('.battle').style.display = 'block';
 
-        (new CharacterAttributesComponent('player', player)).show();
-        (new CharacterAttributesComponent('enemy', enemy)).show();
+        playerComponent = new CharacterComponent('player', player);
+        enemyComponent = new CharacterComponent('enemy', enemy);
 
-        var sound = new Sound({ fileType: 'mp3', path: 'sound/battle', htmlElement: document.querySelector('.sound') });
-        var soundComponent = new SoundComponent(sound);
+        playerAttributesComponent = new CharacterAttributesComponent('player', player);
+        enemyAttributesComponent = new CharacterAttributesComponent('enemy', enemy);
+
+        playerAttributesComponent.show();
+        enemyAttributesComponent.show();
+
+        soundComponent = new SoundComponent(battleEpicSound);
         soundComponent.playByAudio(true);
     }
 

@@ -8,6 +8,7 @@ CharacterAttributesComponent.prototype.show = function () {
         character = this.character;
 
     if (divCharacter.innerText !== '') {
+        divCharacter.querySelector('.name').innerText = 'Name: ' + character.name;
         divCharacter.querySelector('.strength').innerText = 'Strength: ' + character.strength;
         divCharacter.querySelector('.armor').innerText = 'Armor: ' + character.armor;
         divCharacter.querySelector('.ability').innerText = 'Ability: ' + character.ability;
@@ -18,10 +19,11 @@ CharacterAttributesComponent.prototype.show = function () {
         var request = new XMLHttpRequest();
         request.open('GET', 'templateChar.html', true);
         request.addEventListener('load', function () {
-            var template = request.responseText.replace('{{AVATAR}}', character.avatar).replace('{{NAME}}',
-            character.name).replace('{{STRENGTH}}', character.strength).replace('{{ARMOR}}',
-            character.armor).replace('{{ABILITY}}', character.ability).replace('{{FIREPOWER}}',
-            character.firepower).replace('{{RESISTENCE}}', character.resistence).replace('{{LIFE}}', character.life);
+            var template = request.responseText.replace('{{NAME}}', character.name).replace('{{AVATAR}}',
+            character.avatar).replace('{{NAME}}', character.name).replace('{{STRENGTH}}',
+            character.strength).replace('{{ARMOR}}', character.armor).replace('{{ABILITY}}',
+            character.ability).replace('{{FIREPOWER}}', character.firepower).replace('{{RESISTENCE}}',
+            character.resistence).replace('{{LIFE}}', character.life);
 
             divCharacter.innerHTML += template;
         });
