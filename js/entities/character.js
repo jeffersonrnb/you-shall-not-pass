@@ -15,6 +15,6 @@ Character.prototype.attack = function (enemyChar) {
     var totalDamage;
     totalDamage = (this.strength * Math.ceil(Math.random() * 6)) - (enemyChar.armor * Math.ceil(Math.random() * 6));
     if (totalDamage > 0) {
-        enemyChar.life = (enemyChar.life - totalDamage) < 0 ? 0 : (enemyChar.life - totalDamage);
+        enemyChar.life = Math.max((enemyChar.life - totalDamage), 0);
     }
 }
