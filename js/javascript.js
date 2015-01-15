@@ -37,6 +37,7 @@ window.addEventListener('load', function () {
             }
         }
 
+        (new Sound({ fileType: 'wav', path: 'sound/staff', htmlElement: document.querySelector('.attack') })).play();
         (new CharacterAttributesComponent('player', player)).show();
         (new CharacterAttributesComponent('enemy', enemy)).show();
 
@@ -45,9 +46,17 @@ window.addEventListener('load', function () {
         if (player.life <= 0) {
             divCharacter = document.querySelector('.enemy');
             divCharacter.style.backgroundColor = 'green';
+
+            var sound = new Sound({ fileType: 'mp3', path: 'sound/defeat', htmlElement: document.querySelector('.character') });
+            var soundComponent = new SoundComponent(sound);
+            soundComponent.playByAudio(false);
         } else if (enemy.life <= 0) {
             divCharacter = document.querySelector('.player');
             divCharacter.style.backgroundColor = 'green';
+
+            var sound = new Sound({ fileType: 'mp3', path: 'sound/victory', htmlElement: document.querySelector('.character') });
+            var soundComponent = new SoundComponent(sound);
+            soundComponent.playByAudio(false);
         }
     }
 
@@ -77,6 +86,10 @@ window.addEventListener('load', function () {
 
         (new CharacterAttributesComponent('player', player)).show();
         (new CharacterAttributesComponent('enemy', enemy)).show();
+
+        var sound = new Sound({ fileType: 'mp3', path: 'sound/battle', htmlElement: document.querySelector('.sound') });
+        var soundComponent = new SoundComponent(sound);
+        soundComponent.playByAudio(true);
     }
 
     document.querySelector('.attack').addEventListener('click', atacar);
