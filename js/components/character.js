@@ -30,6 +30,17 @@ CharacterComponent.prototype.show = function() {
     window.requestAnimationFrame(step);
 };
 
+CharacterComponent.prototype.getEnemy = function() {
+    var request = new XMLHttpRequest();
+    request.open('GET', 'js/enemies.json', false);
+    request.send();
+    enemies = JSON.parse(request.responseText).enemies;
+    pos = Math.floor(Math.random() * (enemies.length));
+    console.log(this);
+    this.character = new Character(enemies[pos]);
+
+};
+
 CharacterComponent.prototype.levelUp = function () {
     var character = this.character,
         template = '\

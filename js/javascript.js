@@ -43,7 +43,6 @@ window.addEventListener('load', function () {
                 enemyAttributesComponent.show();
                 enemyComponent.show();
             }
-
             staffSound.play();
             playerComponent.show();
             playerAttributesComponent.show();
@@ -66,7 +65,8 @@ window.addEventListener('load', function () {
 
                     document.querySelector('.level-up').remove();
 
-                    enemy = createCharacter('Personagem3');
+                    enemyComponent.getEnemy();
+                    enemy = enemyComponent.character;
                     enemyAttributesComponent = new CharacterAttributesComponent('enemy', enemy);
                     enemyAttributesComponent.show();
                 }, 5000);
@@ -91,15 +91,18 @@ window.addEventListener('load', function () {
         resistence = Math.max(formResistence, 0) > Math.max(countChar, 0) ? Math.max(countChar, 0) : Math.max(formResistence, 0);
 
         player = new Character({name: name, strength: strength, armor: armor, ability: ability, firepower: firepower, resistence: resistence, avatar: 'img/characters/arch-mage'});
+        player = new Character({name: name, strength: strength, armor: armor, ability: ability, firepower: firepower, resistence: resistence, avatar: 'img/characters/arch-mage'});
 
         document.querySelector('#form_char1').remove();
 
-        enemy = createCharacter('Personagem2');
+        enemy = new Character({name: name, strength: strength, armor: armor, ability: ability, firepower: firepower, resistence: resistence, avatar: 'img/characters/arch-mage'});
 
         document.querySelector('.battle').style.display = 'block';
 
         playerComponent = new CharacterComponent('player', player);
         enemyComponent = new CharacterComponent('enemy', enemy);
+        enemyComponent.getEnemy();
+        enemy = enemyComponent.character;
 
         playerAttributesComponent = new CharacterAttributesComponent('player', player);
         enemyAttributesComponent = new CharacterAttributesComponent('enemy', enemy);

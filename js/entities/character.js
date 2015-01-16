@@ -1,15 +1,17 @@
 var Character = function (attributes) {
-    this.avatar = attributes.avatar;
-    this.name = attributes.name;
-    this.strength = attributes.strength;
-    this.armor = attributes.armor;
-    this.ability = attributes.ability;
-    this.firepower = attributes.firepower;
-    this.resistence = attributes.resistence;
-    this.life = Math.max(attributes.resistence * 5, 1);
-    this.status = '';
-    this.avatarClass = attributes.avatarClass || 'Arch-mage';
-    this.XP = 0;
+    if(attributes) {
+        this.avatar = attributes.avatar;
+        this.name = attributes.name;
+        this.strength = attributes.strength;
+        this.armor = attributes.armor;
+        this.ability = attributes.ability;
+        this.firepower = attributes.firepower;
+        this.resistence = attributes.resistence;
+        this.life = Math.max(attributes.resistence * 5, 1);
+        this.status = '';
+        this.avatarClass = attributes.avatarClass || 'Arch-mage';
+        this.XP = 0;
+    }
 };
 
 Character.prototype.attack = function (enemyChar) {
