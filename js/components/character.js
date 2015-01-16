@@ -28,7 +28,7 @@ CharacterComponent.prototype.show = function() {
 
     step = this.step;
     window.requestAnimationFrame(step);
-}
+};
 
 CharacterComponent.prototype.getEnemy = function() {
     var request = new XMLHttpRequest();
@@ -38,5 +38,21 @@ CharacterComponent.prototype.getEnemy = function() {
     pos = Math.floor(Math.random() * (enemies.length));
     console.log(this);
     this.character = new Character(enemies[pos]);
-    
-}
+
+};
+
+CharacterComponent.prototype.levelUp = function () {
+    var character = this.character,
+        template = '\
+        <div class="level-up">\
+            <img src="img/misc/levelup.gif" alt="">\
+            <div class="xp">XP: {{XP}}</div>\
+        </div>';
+
+    character.XP++;
+
+    template = template.replace('{{XP}}', character.XP);
+
+    divPlayer = document.querySelector('.player');
+    divPlayer.innerHTML = template + divPlayer.innerHTML;
+};
