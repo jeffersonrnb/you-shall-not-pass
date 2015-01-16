@@ -1,0 +1,32 @@
+.battle {
+    width: 700px;
+    height: 480px;
+    padding-top: 20px;
+    padding-left: 100px;
+    color: white;
+    display: none;
+}
+
+.bg-bridge {
+    background-image: url(../img/background/bridge.png);
+}
+
+.bg-vulcan {
+    background-image: url(../img/background/vulcan.jpg);
+}
+
+.enemy .avatar {
+    transform: scale(-1, 1);
+}
+
+.level-up {
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    margin-left: 100px;
+}
+
+.level-up img {
+    width: 110px;
+}
