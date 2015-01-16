@@ -65,7 +65,8 @@ window.addEventListener('load', function () {
 
                     document.querySelector('.level-up').remove();
 
-                    enemy = createCharacter('Personagem3');
+                    enemyComponent.getEnemy();
+                    enemy = enemyComponent.character;
                     enemyAttributesComponent = new CharacterAttributesComponent('enemy', enemy);
                     enemyAttributesComponent.show();
                 }, 5000);
