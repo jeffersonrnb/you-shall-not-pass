@@ -18,3 +18,15 @@
 .enemy .avatar {
     transform: scale(-1, 1);
 }
+
+.level-up {
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    margin-left: 100px;
+}
+
+.level-up img {
+    width: 110px;
+}
